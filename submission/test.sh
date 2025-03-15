@@ -172,13 +172,12 @@ check_cmd "New taproot address generation"
 
 # STUDENT TASK: Get the address info to extract the internal key
 # WRITE YOUR SOLUTION BELOW:
-ADDR_INFO=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getaddressinfo $NEW_TAPROOT_ADDR)
+ADDR_INFO=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getaddressinfo "$NEW_TAPROOT_ADDR")
 check_cmd "Getting address info"
 
 # STUDENT TASK: Extract the internal key (the x-only pubkey) from the descriptor
 # WRITE YOUR SOLUTION BELOW:
-# CHALLENGE PART 7
-INTERNAL_KEY=$(bitcoin-cli -regtest -rpcwallet=btrustwallet getaddressinfo "$NEW_TAPROOT_ADDR" | jq -r '.embedded.inner[0]')
+INTERNAL_KEY=$(echo "$ADDR_INFO" | jq -r '.pubkey')
 check_cmd "Extracting key from descriptor"
 
 
